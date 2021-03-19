@@ -17,4 +17,3 @@ npm install
 npm start
 ```
 trus buka [localhost:8080](http://localhost:8080)
-___const db = new Database()
