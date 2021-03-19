@@ -1,8 +1,8 @@
-> Collab: https://agustd.page.link/CollabAPI
+### Kuy Ngobar
+> https://agustd.page.link/CollabAPI
 
 # API
 > API ini adalah API yang API nya API
--
 
 + Gratis
 + Sumber Terbuka
@@ -11,8 +11,8 @@
 ___
 # Instalasi
 ```
-git clone https://www.github.com/mbahagus/APIKU
-cd APIKU
+git clone https://www.github.com/mbahagus/ExpressJS-API
+cd ExpressJS-API
 npm install
 npm start
 ```
