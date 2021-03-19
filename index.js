@@ -1,5 +1,6 @@
 const cookie = require("cookie-parser")
 const express = require("express");
+const logger = require("morgan");
 const cors = require("cors");
 const app = express();
 const api = require("./routes/api");
@@ -7,6 +8,7 @@ const api = require("./routes/api");
 app.use(cors());
 app.use(cookie());
 app.use(express.json());
+app.use(logger("dev"));
 app.set("json spaces", 2);
 
 app.use(api);

@@ -3,19 +3,30 @@ const router = express.Router();
 const dir = process.cwd();
 
 const {
+  whois
+} = require(dir + "/function/lainya");
+const {
+  igStalk,
+  igDownload
+} = require(dir + "/function/ig");
+const {
   getApk,
-  searchApk,
+  searchApk
+} = require(dir + "/function/rexdl");
+const {
   artiNama,
   artiMimpi,
-  igStalk,
-  whois
-} = require(dir + "/function");
+  ramalJodoh
+} = require(dir + "/function/primbon");
+const {
+  pShadow
+} = require(dir + "/function/photooxy");
 
 router.all("/", (req, res) => {
-  res.send("<iframe height='100%' width='100%' src='https://replit.com/@AgustD/api?lite=true' scrolling='no' frameborder='no' allowtransparency='true' allowfullscreen='true' sandbox='allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals'></iframe>");
+  res.send("Hello World");
 });
 
-router.get("/artinama", (req, res) => {
+router.get("/primbon/artinama", (req, res) => {
   const nama = req.query.q;
   artiNama(nama)
     .then((data) => {
@@ -26,7 +37,7 @@ router.get("/artinama", (req, res) => {
     });
 });
 
-router.get("/artimimpi", (req, res) => {
+router.get("/primbon/artimimpi", (req, res) => {
   const mimpi = req.query.q;
   artiMimpi(mimpi)
     .then((data) => {
@@ -37,9 +48,32 @@ router.get("/artimimpi", (req, res) => {
     });
 });
 
-router.get("/igstalk", (req, res) => {
+router.get("/primbon/jodoh", (req, res) => {
+  const nama1 = req.query.nama1;
+  const nama2 = req.query.nama2;
+  ramalJodoh(nama1, nama2)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
+router.get("/ig/stalk", (req, res) => {
   const username = req.query.u || req.query.username || req.query.user || req.query.q;
   igStalk(username)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+router.get("/ig/download", (req, res) => {
+  const url = req.query.url || req.query.link;
+  igDownload(url)
     .then((data) => {
       res.send(data);
     })
@@ -78,6 +112,17 @@ router.get("/rexdl/get", (req, res) => {
     })
     .catch((error) => {
       res.send(error);
+    });
+});
+
+router.get("/photooxy/shadow", (req, res) => {
+  const text1 = req.query.text1;
+  pShadow(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
     });
 });
 
