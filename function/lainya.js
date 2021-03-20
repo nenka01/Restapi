@@ -1,6 +1,6 @@
 const request = require("request");
 
-function whois(domain = 'caranya.my.id') {
+async function whois(domain = 'caranya.my.id') {
   return new Promise((resolve, reject) => {
     var options = { 
       method: 'POST',
@@ -14,7 +14,7 @@ function whois(domain = 'caranya.my.id') {
       }
     };
 
-    request(options, function (error, response, body) {
+    request(options, async function (error, response, body) {
       if (error) throw new Error(error);
       const result = JSON.parse(body);
       resolve({

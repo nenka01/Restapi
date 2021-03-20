@@ -1,38 +1,25 @@
 const request = require("request");
 const cheerio = require("cheerio");
 
-const base = "https://photooxy.com"
 const tema = [
   "https://photooxy.com/logo-and-text-effects/shadow-text-effect-in-the-sky-394.html"
 ]
 
-function pShadow(text1) {
+async function pShadow(text1) {
   return new Promise((resolve, reject) => {
-    try {
-      const option = {
-        headers: {
-          'Content-Type' : 'application/x-www-form-urlencoded'
-        },
-        method: 'POST',
-        url: base + tema[0],
-        form: {
-          'text_1' : text1,
-          'login' : 'OK'
-        }
+    const options = { method: 'POST',
+      url: tema[0],
+      headers: { 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' },
+      formData: { text_1: text1, login: 'OK' } };
+    
+    request(options, async function (error, response, body) {
+      if (error) throw new Error(error);
+      const $ = cheerio.load(body)
+      const result = {
+           url: $('div.btn-group > a').attr('href')
       }
-
-      request.post(option, (error, respon, body) => {
-        const $ = cheerio.load(body);
-        const res = $('div.thumbnail > img').attr('src');
-        const result = {
-          teks: text1,
-          url: base + res
-        }
-        resolve(result)
-      })
-    } catch (error) {
-      reject(error)
-    }
+      resolve(result);
+    });
   })
 }
 

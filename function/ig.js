@@ -8,7 +8,7 @@ const options = {
   session: "sessionid=" + sID
 };
 
-function igStalk(username = 'instagram') {
+async function igStalk(username = 'instagram') {
   return new Promise((resolve, reject) => {
     try {
       ig.getUserMeta(username, options)
@@ -42,7 +42,7 @@ function igStalk(username = 'instagram') {
   });
 }
 
-function igDownload(url) {
+async function igDownload(url) {
   return new Promise((resolve, reject) => {
     if (url === 'undefined') { 
       reject({
@@ -61,22 +61,10 @@ function igDownload(url) {
         })
       )
     } 
-    catch(err){
-      try {
-        ig.getPostMeta(url, options).then(data =>
-          resolve({
-            id: data.graphql.shortcode_media.id,
-            shortCode: data.graphql.shortcode_media.shortcode,
-            caption: data.graphql.shortcode_media.edge_media_to_caption.edges[0].node.text,
-            url: data.graphql.shortcode_media.display_url
-          })
-        )
-      }
-      catch(err) {
-        reject({
-          msg: "Link Tidak Valid"
-        })
-      }
+    catch(err) {
+      reject({
+        msg: "Link Tidak Valid"
+      })
     }
   })
 }

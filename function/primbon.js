@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-function artiMimpi(mimpi) {
+async function artiMimpi(mimpi) {
   return new Promise((resolve, reject) => {
     axios
       .get(
@@ -31,7 +31,7 @@ function artiMimpi(mimpi) {
   });
 };
 
-function artiNama(nama) {
+async function artiNama(nama) {
   return new Promise((resolve, reject) => {
     axios
       .get(
@@ -49,7 +49,7 @@ function artiNama(nama) {
   });
 };
 
-function ramalJodoh(nama1, nama2) {
+async function ramalJodoh(nama1, nama2) {
   return new Promise((resolve, reject) => {
     axios
     .get(`https://www.primbon.com/kecocokan_nama_pasangan.php?nama1=${nama1}&nama2=${nama2}&proses=+Submit%21+`)

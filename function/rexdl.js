@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-function getApk(url) {
+async function getApk(url) {
      return new Promise((resolve, reject) => {
           if (!/rexdlfile.com/g.test(url)) return resolve({ status: false, message: 'URL Yang Kamu Masukkan Tidak Valid' })
           axios.get(url)
@@ -51,7 +51,7 @@ function getApk(url) {
      })
 }
 
-function searchApk(apkname) {
+async function searchApk(apkname) {
      return new Promise((resolve, reject) => {
           axios.get(`https://rexdl.com/?s=${apkname}`)
                .then(({ data }) => {

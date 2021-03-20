@@ -1,6 +1,6 @@
 const yt = require('ytdl-core')
 
-function ytdl(url) {
+async function ytdl(url) {
   return new Promise((resolve, reject) => {
     try {
       const id = yt.getVideoID(url)
