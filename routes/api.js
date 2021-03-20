@@ -1,3 +1,4 @@
+const ytdl = require('ytdl-core');
 const express = require("express");
 const router = express.Router();
 const dir = process.cwd();
@@ -27,25 +28,6 @@ router.all("/", (req, res) => {
   res.cookie('some_cross_domain_cookie', 'http://test.caranya.my.id', { domain: 'caranya.my.id', encode: String });
   res.sendfile(dir + "/public/index.html");
 });
-
-router.get('/:apa', function (req, res, next) {
-  const options = {
-    root: path.join(__dirname, 'public'),
-    dotfiles: 'deny',
-    headers: {
-      'x-timestamp': Date.now(),
-      'x-sent': true
-    }
-  }
-  const fileName = req.params.apa
-  res.sendFile(fileName, options, function (error) {
-    if (error) {
-      next(error)
-    } else {
-      console.log('Sent:', fileName)
-    }
-  })
-})
 
 router.get("/primbon/artinama", (req, res) => {
   const nama = req.query.q;
