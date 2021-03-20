@@ -19,7 +19,9 @@ const {
   ramalJodoh
 } = require(dir + "/function/primbon");
 const {
-  pShadow
+  pShadow,
+  pRomantic,
+  pSmoke
 } = require(dir + "/function/photooxy");
 const {
   ytdl
@@ -123,6 +125,28 @@ router.get("/rexdl/get", (req, res) => {
 router.get("/photooxy/shadow", (req, res) => {
   const text1 = req.query.text1;
   pShadow(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/romantic", (req, res) => {
+  const text1 = req.query.text1;
+  pRomantic(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/smoke", (req, res) => {
+  const text1 = req.query.text1;
+  pSmoke(text1)
     .then((data) => {
       res.send(data)
     })
