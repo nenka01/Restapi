@@ -6,8 +6,6 @@
 
 + Gratis
 + Sumber Terbuka
-+ Kode Rapih
-+ Ter struktur
 ___
 # Instalasi
 ```
