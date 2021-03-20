@@ -15,3 +15,7 @@ npm install
 npm start
 ```
 trus buka [localhost:8080](http://localhost:8080)
+
+## Demo
+[test.caranya.my.id](https://test.caranya.my.id)
+___
