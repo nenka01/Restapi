@@ -1,4 +1,3 @@
-const ytdl = require('ytdl-core');
 const express = require("express");
 const router = express.Router();
 const dir = process.cwd();
@@ -22,6 +21,9 @@ const {
 const {
   pShadow
 } = require(dir + "/function/photooxy");
+const {
+  ytdl
+} = require(dir + "/function/yt");
 
 router.all("/", (req, res) => {
   res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
@@ -121,6 +123,17 @@ router.get("/rexdl/get", (req, res) => {
 router.get("/photooxy/shadow", (req, res) => {
   const text1 = req.query.text1;
   pShadow(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get('/ytdl', (req, res) => {
+  const url = req.query.url || req.query.link;
+  ytdl(url)
     .then((data) => {
       res.send(data)
     })
