@@ -21,15 +21,47 @@ const {
 const {
   pShadow,
   pRomantic,
-  pSmoke
+  pSmoke,
+  pBurnPapper,
+  pNaruto,
+  pLoveMsg,
+  pMsgGrass,
+  pTikTok,
+  pDoubleHeart,
+  pCoffeCup
 } = require(dir + "/function/photooxy");
 const {
   ytdl
 } = require(dir + "/function/yt");
 
-router.all("/", (req, res) => {
+const listkey = ["test", "pikey", "ads"];
+
+router.post("/key", (req, res) => {
+  const key = req.query.key;
+  if(listkey.includes(key)) {
+    res.send({
+      msg: 'apikey sudah terdaftar'
+    });
+  } else {
+    listkey.push(key);
+    res.send({
+      msg: 'berhasil mendaftarkan apikey'
+    });
+  }
+});
+
+router.get("/key", (req, res) => {
+  const key = req.query.key;
+  if(listket.includes(key)) {
+    res.send('apikey terdaftar');
+  } else {
+    res.send('apikey tidak terdaftar');
+  }
+});
+
+router.get("/", (req, res) => {
   res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
-  res.cookie('some_cross_domain_cookie', 'http://test.caranya.my.id', { domain: 'caranya.my.id', encode: String });
+  res.cookie('some_cross_domain_cookie', 'http://api.masagus.space', { domain: 'api.masagus.space', encode: String });
   res.sendfile(dir + "/public/index.html");
 });
 
@@ -147,6 +179,84 @@ router.get("/photooxy/romantic", (req, res) => {
 router.get("/photooxy/smoke", (req, res) => {
   const text1 = req.query.text1;
   pSmoke(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/burn-papper", (req, res) => {
+  const text1 = req.query.text1;
+  pBurnPapper(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/naruto", (req, res) => {
+  const text1 = req.query.text1;
+  pNaruto(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/love-message", (req, res) => {
+  const text1 = req.query.text1;
+  pLoveMsg(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/message-under-grass", (req, res) => {
+  const text1 = req.query.text1;
+  pMsgGrass(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/tiktok", (req, res) => {
+  const text1 = req.query.text1;
+  const text2 = req.query.text2;
+  pTikTok(text1, text2)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/double-heart", (req, res) => {
+  const text1 = req.query.text1;
+  pDoubleHeart(text1)
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((error) => {
+      res.send(error)
+    });
+});
+
+router.get("/photooxy/coffe-cup", (req, res) => {
+  const text1 = req.query.text1;
+  pCoffeCup(text1)
     .then((data) => {
       res.send(data)
     })
