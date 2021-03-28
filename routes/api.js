@@ -16,7 +16,8 @@ const {
 const {
   artiNama,
   artiMimpi,
-  ramalJodoh
+  ramalJodoh,
+  nomorHoki
 } = require(dir + "/function/primbon");
 const {
   pShadow,
@@ -91,6 +92,17 @@ router.get("/primbon/jodoh", (req, res) => {
   const nama1 = req.query.nama1;
   const nama2 = req.query.nama2;
   ramalJodoh(nama1, nama2)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      res.send(error);
+    });
+});
+
+router.get("/primbon/nomor-hoki", (req, res) => {
+  const nomor = req.query.nomor || req.query.q || req.query.nomer
+  nomorHoki(nomor)
     .then((data) => {
       res.send(data);
     })
