@@ -1,208 +1,100 @@
-const request = require("request");
+const axios = require("axios");
 const cheerio = require("cheerio");
+const request = require("request");
 
-const tema = {
-  shadow: "https://photooxy.com/logo-and-text-effects/shadow-text-effect-in-the-sky-394.html",
-  romantic: "https://photooxy.com/logo-and-text-effects/romantic-messages-for-your-loved-one-391.html",
-  smoke: "https://photooxy.com/other-design/create-an-easy-smoke-type-effect-390.html",
-  burnPapper: "https://photooxy.com/logo-and-text-effects/write-text-on-burn-paper-388.html",
-  naruto: "https://photooxy.com/manga-and-anime/make-naruto-banner-online-free-378.html",
-  loveMsg: "https://photooxy.com/logo-and-text-effects/create-a-picture-of-love-message-377.html",
-  msgGrass: "https://photooxy.com/logo-and-text-effects/make-quotes-under-grass-376.html",
-  tikTok: "https://photooxy.com/logo-and-text-effects/make-tik-tok-text-effect-375.html",
-  doubleHeart: "https://photooxy.com/logo-and-text-effects/love-text-effect-372.html",
-  coffeCup: "https://photooxy.com/logo-and-text-effects/put-any-text-in-to-coffee-cup-371.html"
-}
-
-async function pShadow(text1) {
+async function artiMimpi(mimpi) {
   return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.shadow,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
+    axios
+      .get(
+        `https://www.primbon.com/tafsir_mimpi.php?mimpi=${mimpi}&submit=+Submit+`
+      )
+      .then(({ data }) => {
+        const $ = cheerio.load(data);
+        const cek = $("#body > font > i").text();
+        const adaga = /Tidak ditemukan/g.test(cek) ? false : true;
+        if (adaga) {
+          const isi = $("#body")
+            .text()
+            .split(`Hasil pencarian untuk kata kunci: ${mimpi}`)[1]
+            .replace(/\n\n\n\n\n\n\n\n\n/gi, "\n");
+          const result = {
+            result: isi.replace(/\n/gi, "").replace("       ", "").replace("\"        ", "")
+          };
+          resolve(result);
+        } else {
+          const result = {
+            result: `Arti mimpi ${mimpi} tidak di temukan`
+          };
+          resolve(result);
+        }
+      })
+      .catch(reject);
+  });
+};
 
-async function pRomantic(text1) {
+async function artiNama(nama) {
   return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.romantic,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
+    axios
+      .get(
+        `https://www.primbon.com/arti_nama.php?nama1=${nama}&proses=+Submit%21+`
+      )
+      .then(({ data }) => {
+        const $ = cheerio.load(data);
+        const isi = $("#body").text().split("Nama:")[0];
+        const result = {
+          result: isi.replace(/\n/gi, "").replace("ARTI NAMA", "").replace("                                ", "")
+        };
+        resolve(result);
+      })
+      .catch(reject);
+  });
+};
 
-async function pSmoke(text1) {
+async function ramalJodoh(nama1, nama2) {
   return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.smoke,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
+    axios
+    .get(`https://www.primbon.com/kecocokan_nama_pasangan.php?nama1=${nama1}&nama2=${nama2}&proses=+Submit%21+`)
+    .then(({ data }) => {
+     const $ = cheerio.load(data);
+     const thumbnail = 'https://www.primbon.com/'+$('#body > img').attr('src');
+     const res = $('#body').text().split(nama2)[1].replace('< Hitung Kembali','').split('\n')[0];
+     const positif = res.split('Sisi Negatif Anda: ')[0].replace('Sisi Positif Anda: ','')
+     const negatif = res.split('Sisi Negatif Anda: ')[1]
+     const result = {
+          namaKamu: nama1,
+          namaPasangan: nama2,
+          thumbnail: thumbnail,
+          positif: positif,
+          negatif: negatif
+     }
+     resolve(result);
+    })
+    .catch(reject);
+  });
+};
 
-async function pBurnPapper(text1) {
+async function nomorHoki(nomor) {
   return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.burnPapper,
+    var options = { method: 'POST',
+      url: 'https://primbon.com/no_hoki_bagua_shuzi.php',
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
+      form: { nomer: nomor, submit: ' Submit! ' } };
 
-async function pNaruto(text1) {
-  return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.naruto,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_2: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
+      request(options, function (error, response, body) {
       if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
+      const $ = cheerio.load(body);
+      const result = $('#body').text().split('POTENSI HOKI')[1].replace('\n\n\n\n  \n    \nMasukkan Nomor HP Anda\n    \n  \n  \n    \n\n    \n    \n\n    \n  \n\n\n\n\nMeningkatkan Keberuntungan Melalui Nomor Handphone (HP)\nNomor HP adalah gabungan kombinasi angka-angka yang sebenarnya memiliki arti, ada yang membawa pengaruh baik (hoki), biasa, atau bahkan dianggap kurang baik. Sebuah nomor HP bisa saja dianggap cantik, dijual sampai jutaan, bahkan puluhan juta rupiah, namun nomor tersebut belum tentu hoki. Aplikasi ini dibuat untuk mengecek seberapa jauh pengaruh energi suatu deret nomor HP berdasarkan algoritma Bagua Shuzi, yaitu metode China kuno yang sudah berusia ribuan tahun yang bertujuan untuk mengejar keberuntungan melalui pemilihan angka.\n\nBagua Shuzi menjelaskan pengaruh kombinasi angka yang berupa energi Kekayaan (Sheng Qi), Kesehatan (Tian Yi), Cinta/Relasi (Yan Nian), dan Kelancaran/Kestabilan (Fu Wei), sebagai energi positif. Sedangkan energi Perselisihan (Huo Hai), Kehilangan (Liu Sha), Malapetaka (Wu Gui), dan Kehancuran (Jue Ming), sebagai energi negatif. Sebuah nomor dikatakan baik atau hoki jika persentase energi positifnya lebih banyak dibanding energi negatifnya. Karena metode Bagua Shuzi menggunakan algoritma perhitungan yang cukup kompleks, maka tidak heran jika nomor hoki jumlahnya lebih terbatas dibanding nomor cantik.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    \n    ', '')
+      resolve({
+        result: 'POTENSI HOKI'+result
+      });
     });
-  })
-}
 
-async function pLoveMsg(text1) {
-  return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.loveMsg,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
-
-async function pMsgGrass(text1) {
-  return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.msgGrass,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
-
-async function pTikTok(text1, text2) {
-  return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.tikTok,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, text_2: text2, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
-
-async function pDoubleHeart(text1) {
-  return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.doubleHeart,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
-  })
-}
-
-async function pCoffeCup(text1) {
-  return new Promise((resolve, reject) => {
-    const options = { method: 'POST',
-      url: tema.coffeCup,
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      formData: { text_1: text1, login: 'OK' } };
-    
-    request(options, async function (error, response, body) {
-      if (error) throw new Error(error);
-      const $ = cheerio.load(body)
-      const result = {
-           url: $('div.btn-group > a').attr('href')
-      }
-      resolve(result);
-    });
   })
 }
 
 module.exports = {
-  pShadow,
-  pRomantic,
-  pSmoke,
-  pBurnPapper,
-  pNaruto,
-  pLoveMsg,
-  pMsgGrass,
-  pTikTok,
-  pDoubleHeart,
-  pCoffeCup
+  artiNama,
+  artiMimpi,
+  ramalJodoh,
+  nomorHoki
 };

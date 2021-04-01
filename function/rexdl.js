@@ -29,13 +29,10 @@ async function getApk(url) {
                     }
                     for (let i = 0; i < url_download.length; i++) {
                          promiss.push(
-                              axios.get('https://tinyurl.com/api-create.php?url=' + url_download[i])
-                              .then(({ data }) => {
-                                   link_download.push({ 
-                                        title: name[i],
-                                        url: data
-                                   })
-                              })
+                            link_download.push({ 
+                                title: name[i],
+                                url: url_download[i]
+                            })
                          )
                     }
                     Promise.all(promiss).then(() => {
@@ -86,7 +83,9 @@ async function searchApk(apkname) {
                               desc: desc[i]
                          })
                     }
-                    resolve(result)
+                    resolve({
+                        result: result
+                    })
                }).catch(reject)
      })
 }

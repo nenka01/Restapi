@@ -1,8 +1,10 @@
-const cookie = require("cookie-parser")
+const favicon = require("serve-favicon");
+const cookie = require("cookie-parser");
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const app = express();
+const dir = process.cwd();
 const api = require("./routes/api");
 
 const options = {
@@ -22,12 +24,11 @@ app.use(cookie());
 app.use(express.json());
 app.use(logger("dev"));
 app.set("json spaces", 2);
-app.use(express.static('public', options))
+app.use(express.static('public', options));
+app.use(favicon(dir + "/public/favicon.ico"));
 
 app.use(api);
 
 app.listen(8080, () => {
   console.log("Server berjalan di port 8080");
 });
-
-module.export = app;
