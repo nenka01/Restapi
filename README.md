@@ -14,5 +14,5 @@ npm start
 trus buka [localhost:8080](http://localhost:8080)
 
 ## Demo
-[api.masagus.space](https://api.masagus.space)
+[api.caranya.my.id](https://api.caranya.my.id)
 ___
