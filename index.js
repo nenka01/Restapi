@@ -10,7 +10,7 @@ const api = require("./routes/api");
 const options = {
   dotfiles: "ignore",
   etag: false,
-  extensions: ["html", "htm"],
+  extensions: ["html"],
   index: false,
   maxAge: "999999d",
   redirect: false,
@@ -29,6 +29,6 @@ app.use(favicon(dir + "/public/favicon.ico"));
 
 app.use(api);
 
-app.listen(1234, () => {
-  console.log("Server berjalan di port 1234");
+app.listen(9999, () => {
+  console.log("Server berjalan di port 9999");
 });
