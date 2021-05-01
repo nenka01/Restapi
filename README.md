@@ -4,6 +4,9 @@
 + Gratis
 + Sumber Terbuka
 ___
+# Deploy Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mbahagus/ExpressJs-API)
+___
 # Instalasi
 ```
 git clone https://www.github.com/mbahagus/ExpressJS-API
