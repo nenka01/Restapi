@@ -368,3 +368,5 @@ router.use(function (req, res, next) {
         .set("Content-Type", "text/html")
         .sendfile(dir + "/public/404.html");
 });
+
+module.exports = router;
