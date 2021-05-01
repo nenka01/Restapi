@@ -17,8 +17,8 @@ app.use(favicon(dir + "/public/favicon.ico"));
 
 app.use(api);
 
-app.listen(8080, () => {
-  console.log("Server berjalan di port 8080");
+app.listen(process.env.PORT || 5000, () => {
+  console.log("OK");
 });
 
 module.exports = app;
