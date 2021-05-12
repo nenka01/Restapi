@@ -1,34 +1,21 @@
-# README
-
-## API
-
+# API
 > API ini adalah API yang API nya API
 
-* Gratis
-* Sumber Terbuka
-
-## Deploy Heroku
-
++ Gratis
++ Sumber Terbuka
+___
+# Deploy Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mbahagus/ExpressJs-API)
-
-## Instalasi
-
-```text
+___
+# Instalasi
+```
 git clone https://www.github.com/mbahagus/ExpressJS-API
 cd ExpressJS-API
 npm install
 npm start
 ```
+trus buka [localhost:8080](http://localhost:8080)
 
 ## Demo
-
-[API Caranya My Id](https://api.caranya.my.id/)
-
-## 
-
-Blog saia [Caranya My Id](https://www.caranya.my.id) 
-
-Web APP saia [APP Caranya My Id](https://app.caranya.my.id/)
-
-
-
+[api.caranya.my.id](https://api.caranya.my.id)
+___
