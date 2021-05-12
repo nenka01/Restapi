@@ -32,7 +32,7 @@ WHOIS Domain
 {% endapi-method-summary %}
 
 {% api-method-description %}
-
+WHOIS Domain Checker
 {% endapi-method-description %}
 
 {% api-method-spec %}
