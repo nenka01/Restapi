@@ -22,7 +22,7 @@ npm start
 
 ### Demo
 
-{% embed url="https://api.caranya.my.id" caption="API Caranya My Id" %}
+[API Caranya My Id](https://api.caranya.my.id/)
 
 Ini Blog gue
 
